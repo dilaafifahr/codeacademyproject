@@ -1,0 +1,85 @@
+# Import internal library
+import codecademylib3
+
+# 1 
+# Import necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+# load rankings data
+wood_winner = pd.read_csv('Golden_Ticket_Award_Winners_Wood.csv')
+# load rankings data
+steel_winner = pd.read_csv('Golden_Ticket_Award_Winners_Steel.csv')
+print(wood_winner.info())
+print(steel_winner.info())
+
+# 2
+# Create a function to plot rankings over time for 1 roller coaster
+def rank_viz(name, park_name, df):
+  rank_df = df[(df.Name == name) & (df.Park == park_name)]
+  plt.plot(rank_df['Year of Rank'], rank_df['Rank'])
+  plt.title('The rank of ' + name + ' coaster at ' + park_name)
+  plt.ylabel('rank')
+  plt.show()
+
+# 3
+# Create a plot of El Toro ranking over time
+plot1 = rank_viz('El Toro', 'Six Flags Great Adventure', wood_winner)
+# Create a plot of El Toro and Boulder dash hurricanes
+def rank_viz_2(name1, park_name1, name2, park_name2, df):
+  rank_df_1 = df[(df.Name == name1) & (df.Park == park_name1)]
+  rank_df_2 = df[(df.Name == name2) & (df.Park == park_name2)]
+  plt.clf()
+  plt.plot(rank_df_1['Year of Rank'], rank_df_1['Rank'], label=name1)
+  plt.plot(rank_df_2['Year of Rank'], rank_df_2['Rank'], label=name2)
+  plt.legend()
+  plt.title('Rank comparison between 2 coasters')
+  plt.ylabel('rank')
+  plt.show()
+plot2 = rank_viz_2('El Toro', 'Six Flags Great Adventure', 'Boulder Dash', 'Lake Compounce', wood_winner)
+
+# 4
+# Create a function to plot top n rankings over time
+def rank_viz3(n, df):
+  rank_5 = df[df['Rank'] <= 5]
+  unique_coaster = list(rank_5['Name'].unique())
+  plt.clf()
+  for coaster in unique_coaster:
+    ax = plt.subplot()
+    coaster_rank = rank_5[rank_5['Name'] == coaster]
+    ax.plot(coaster_rank['Year of Rank'], coaster_rank['Rank'], label=coaster)
+    plt.legend()
+  plt.show()
+# Create a plot of top n rankings over time
+viz3 = rank_viz3(5, wood_winner)
+# 5
+# load roller coaster data
+
+# 6
+# Create a function to plot histogram of column values
+
+# Create histogram of roller coaster speed
+
+# Create histogram of roller coaster length
+
+# Create histogram of roller coaster number of inversions
+
+# Create a function to plot histogram of height values
+
+# Create a histogram of roller coaster height
+
+# 7
+# Create a function to plot inversions by coaster at park
+
+# Create barplot of inversions by roller coasters
+
+# 8
+# Create a function to plot a pie chart of status.operating
+
+# Create pie chart of roller coasters
+
+# 9
+# Create a function to plot scatter of any two columns
+
+# Create a function to plot scatter of speed vs height
+
+# Create a scatter plot of roller coaster height by speed
