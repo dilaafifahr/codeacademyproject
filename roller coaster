@@ -106,7 +106,12 @@ pie_viz(roller_df)
 
 # 9
 # Create a function to plot scatter of any two columns
-
+def scatter_viz(df, col1, col2):
+  plt.clf()
+  plt.scatter(df[col1], df[col2])
+  plt.xlabel(col1)
+  plt.ylabel(col2)
+  plt.show()
 # Create a function to plot scatter of speed vs height
-
+scatter_viz(roller_df, 'speed', 'height')
 # Create a scatter plot of roller coaster height by speed
