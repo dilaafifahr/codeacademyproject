@@ -48,34 +48,61 @@ def rank_viz3(n, df):
     coaster_rank = rank_5[rank_5['Name'] == coaster]
     ax.plot(coaster_rank['Year of Rank'], coaster_rank['Rank'], label=coaster)
     plt.legend()
+    plt.title('Top ' + str(n) + 'of coaster ranking')
   plt.show()
 # Create a plot of top n rankings over time
 viz3 = rank_viz3(5, wood_winner)
+
 # 5
 # load roller coaster data
+roller_df = pd.read_csv('roller_coasters.csv')
+print(roller_df.head())
+print(roller_df.info())
+print(roller_df.describe())
 
 # 6
 # Create a function to plot histogram of column values
-
+def hist_viz(col, df):
+  plt.clf()
+  df[col].dropna()
+  plt.hist(df[col], range=(df[col].min(), df[col].max()))
+  plt.title('Distribution of ' + col )
+  plt.show()
 # Create histogram of roller coaster speed
-
+viz_11 = hist_viz('speed', roller_df)
 # Create histogram of roller coaster length
-
+viz_12 = hist_viz('length', roller_df)
 # Create histogram of roller coaster number of inversions
-
-# Create a function to plot histogram of height values
-
-# Create a histogram of roller coaster height
+viz_12 = hist_viz('num_inversions', roller_df)
 
 # 7
 # Create a function to plot inversions by coaster at park
-
+def bar_viz(df, park_name):
+  plt.clf()
+  park_df = df[df['park'] == park_name]
+  park_df = park_df.sort_values('num_inversions', ascending=False)
+  coaster_name = park_df['name']
+  number_inv = park_df['num_inversions']
+  ax = plt.subplot()
+  ax.bar(range(len(coaster_name)), number_inv)
+  ax.set_xticks(range(len(coaster_name)))
+  ax.set_xticklabels(coaster_name, rotation=90)
+  plt.show()
 # Create barplot of inversions by roller coasters
+bar_viz(roller_df, 'Parc Asterix')
 
 # 8
 # Create a function to plot a pie chart of status.operating
+def pie_viz(df):
+  coaster_df = df[(df['status'] == 'status.operating') | (df['status'] == 'status.closed.definitely')]
+  status_df = coaster_df['status'].value_counts().reset_index()
+  plt.clf()
+  plt.pie(status_df['status'], autopct='%0.1f%%', labels=status_df['index'])
+  plt.axis('equal')
+  plt.show()
 
 # Create pie chart of roller coasters
+pie_viz(roller_df)
 
 # 9
 # Create a function to plot scatter of any two columns
